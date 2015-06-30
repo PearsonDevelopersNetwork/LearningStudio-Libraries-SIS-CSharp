@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:eclg:coursecopy:enterprisecourse" elementFormDefault="qualified" targetNamespace="urn:eclg:coursecopy:enterprisecourse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" />
+  <xs:element name="CopyCourseContent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="contentCopyRequest" nillable="true" type="q1:ContentCopyRequestEx" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CopyCourseContentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="CopyCourseContentResult" nillable="true" type="q2:ContentCopyStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CopyCourseSection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="courseSectionCopyRequest" nillable="true" type="q3:CourseSectionCopyRequestEx" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CopyCourseSectionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="CopyCourseSectionResult" nillable="true" type="q4:ContentCopyStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CopyCourseSectionAndContent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="copyCourseRequest" nillable="true" type="q5:CopyCourseRequestEx" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CopyCourseSectionAndContentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="CopyCourseSectionAndContentResult" nillable="true" type="q6:ContentCopyStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateCourseSection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="createCourseSection" nillable="true" type="q7:CourseMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateCourseSectionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="CreateCourseSectionResult" nillable="true" type="q8:CourseKeysMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCourseSection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="updateCourseSectionRequest" nillable="true" type="q9:CourseSectionUpdateRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCourseSectionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="UpdateCourseSectionResult" nillable="true" type="q10:ContentCopyStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveCourseCallNumbers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="callNumbersRemoveRequest" nillable="true" type="q11:CallNumbersRemoveRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveCourseCallNumbersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RemoveCourseCallNumbersResult" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

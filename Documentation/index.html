@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>LearningStudio Libraries in C#</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+		<link href='http://fonts.googleapis.com/css?family=Raleway:500,700|Roboto:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="assets/css/normalize.css">
+        <link rel="stylesheet" href="assets/css/main.css">
+        <script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+	<div id="MastBar">
+		<div id="TopColorbar"> </div>
+		<div id="TitleBar">
+			<div>
+				<a href="http://developer.pearson.com" target="_blank" title="Home"><img src="assets/pdn-header-sm.PNG" /></a>
+				<a href="http://developer.pearson.com" target="_blank">developer.pearson.com</a>
+			</div>
+		</div>
+	</div>
+		
+	<article> 
+		<h1>The LearningStudio SIS API C# Libraries</h1>
+		<p>The LearningStudio SIS API Libraries make working with the SOAP APIs easier. There are three libraries that streamline our more complex and common domains. This user guide describes the various functionality and use cases, but you can also skip straight to the <a href="AutoDocs/Help/index.html">auto-generated documentation</a> if you prefer.</p> 
+		<h2>Pre-Requisites</h2>
+		<h3>API Documentation</h3>
+		<p>These libraries are designed only as wrappers for the SOAP APIs. They make using the APIs easier, but will simply return the response from the API (i.e., a XML payload). You should be sure to read the API documentation and background information for LearningStudio while using these libraries. Here are some key places to start: 
+			<ul>
+				<li><a href="http://developer.pearson.com/learningstudio/get-started-0">LearningStudio Introduction</a></li>
+				<li><a href="http://developer.pearson.com/learningstudio/conventions-0">LearningStudio Data Structure and API Information</a></li>
+				<li><a href="http://developer.pearson.com/learningstudio/sis-apis-reference">API Reference</a></li>
+			</ul>
+		<h3>Keys</h3>
+		<p>For all API requests, you'll need a set of credentials; the APIs implement UsernameToken WS-Security.  The API <b>Username</b> and <b>Password</b> control access to the LearningStudio campus you're integrating with. Every new campus you integrate with will have a distinct set of credentials.  </p>
+		<p>You can get credentials for the Sandbox Campus in addition to other items useful for getting started, like test accounts and RESTful API Keys, through the PDN portal. Here's more information:</p>
+			<ul>
+				<li><a href="http://developer.pearson.com/learningstudio/get-learningstudio-api-key-and-sandbox">How to Get Keys</a></li>
+				<li><a href="http://developer.pearson.com/learningstudio/working-software-service-platforms">Introduction to Multitenancy (Software-as-a-Service)</a></li>
+				<li><a href="http://developer.pearson.com/learningstudio/sandbox-campus">About the Sandbox Campus</a></li>
+			</ul>
+			
+		<h2>The Libraries</h2> 
+		<table> 
+			<tr>
+				<th width="20%">Library</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><a href="detail/library-courses.html">Courses</a></td>
+				<td>This library provides a variety of functions mapped to the Courses API to streamline the underlying create, copy, and update course operations.  If you are building an application that provides an alternative way for administrators or professors to copy courses (i.e. a professor self-service course copy utility), this is the library you'll want to use.</td>
+			</tr>
+			<tr>
+				<td><a href="detail/library-terms.html">Terms</a></td>
+				<td>This library provides a variety of functions mapped to the Terms API to streamline the underlying create, and update term operations.  This library works well with the Courses library as the starting point for the course copy process is usually term creation and setup.</td>
+			</tr>
+			<tr>
+				<td><a href="detail/library-users.html">Users</a></td>
+				<td>Automating the user creation and enrollment process is the most common reason people use the LearningStudio SIS APIs. This library makes working with the Users API a little bit easier.  Note that this library currently only provides support for the synchronous user creation and enrollment operation; the asynchronous batch user creation and enrollment operation is not supported at this time.  </td>
+			</tr>
+		</table>		
+	</article> 	
+	<footer>
+		&copy;2015 Pearson Education Inc. Libraries released under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache 2.0 License</a>. For help with these libraries or the APIs, please use the <a href="https://community.pdn.pearson.com" target="_blank">PDN Developer Community</a>.
+	</footer>
+
+    </body>
+</html>

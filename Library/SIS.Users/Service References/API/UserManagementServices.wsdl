@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://CampusApi.eCollege.com/UserManagement/V1_6" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s1="http://schemas.ecollege.com/Common/2006/01/ims_epv1p1.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" targetNamespace="http://CampusApi.eCollege.com/UserManagement/V1_6" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://CampusApi.eCollege.com/UserManagement/V1_6">
+      <s:import namespace="http://schemas.ecollege.com/Common/2006/01/ims_epv1p1.xsd" />
+      <s:element name="ProcessRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:enterprise" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ProcessRequestResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessSingleRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:enterprise" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessSingleRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:ProcessSingleRequestResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://schemas.ecollege.com/Common/2006/01/ims_epv1p1.xsd">
+      <s:element name="enterprise" type="s1:enterprise" />
+      <s:complexType name="enterprise">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s1:comments" />
+          <s:element minOccurs="0" maxOccurs="1" name="properties" type="s1:properties" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="person" type="s1:person" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="group" type="s1:group" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="membership" type="s1:membership" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="comments">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="lang" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="properties">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s1:comments" />
+          <s:element minOccurs="0" maxOccurs="1" name="datasource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="target" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="datetime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="extension" type="s1:extension" />
+        </s:sequence>
+        <s:attribute name="lang" type="s:string" />
+      </s:complexType>
+      <s:complexType name="extension" mixed="true">
+        <s:sequence>
+          <s:any minOccurs="0" maxOccurs="unbounded" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="person">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s1:comments" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="sourcedid" type="s1:sourcedid" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="userid" type="s1:userid" />
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s1:name" />
+          <s:element minOccurs="0" maxOccurs="1" name="demographics" type="s1:demographics" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="tel" type="s1:tel" />
+          <s:element minOccurs="0" maxOccurs="1" name="adr" type="s1:adr" />
+          <s:element minOccurs="0" maxOccurs="1" name="photo" type="s1:photo" />
+          <s:element minOccurs="0" maxOccurs="1" name="systemrole" type="s1:systemrole" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="institutionrole" type="s1:institutionrole" />
+          <s:element minOccurs="0" maxOccurs="1" name="datasource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="extension" type="s1:extension" />
+        </s:sequence>
+        <s:attribute name="recstatus" type="s1:roleRecstatus" />
+      </s:complexType>
+      <s:complexType name="sourcedid">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="source" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+        </s:sequence>
+        <s:attribute name="sourcedidtype" type="s1:sourcedidSourcedidtype" />
+      </s:complexType>
+      <s:simpleType name="sourcedidSourcedidtype">
+        <s:restriction base="s:string">
+          <s:enumeration value="New" />
+          <s:enumeration value="Old" />
+          <s:enumeration value="Duplicate" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="userid">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="pwencryptiontype" type="s:string" />
+            <s:attribute name="authenticationtype" type="s:string" />
+            <s:attribute name="password" type="s:string" />
+            <s:attribute name="useridtype" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="name">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="fn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sort" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nickname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="n" type="s1:n" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="n">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="family" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="given" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="other" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="prefix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="suffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="partname" type="s1:partname" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="partname">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="partnametype" type="s:string" />
+            <s:attribute name="lang" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="demographics">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="gender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="bday" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="disability" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="tel">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute default="1" name="teltype" type="s1:telTeltype" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:simpleType name="telTeltype">
+        <s:restriction base="s:string">
+          <s:enumeration value="1" />
+          <s:enumeration value="2" />
+          <s:enumeration value="3" />
+          <s:enumeration value="4" />
+          <s:enumeration value="Voice" />
+          <s:enumeration value="Fax" />
+          <s:enumeration value="Mobile" />
+          <s:enumeration value="Pager" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="adr">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="pobox" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="extadd" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="street" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="locality" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="region" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="pcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="country" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="photo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="extref" type="s:string" />
+        </s:sequence>
+        <s:attribute name="imgtype" type="s:string" />
+      </s:complexType>
+      <s:complexType name="systemrole">
+        <s:attribute name="systemroletype" type="s1:systemroleSystemroletype" use="required" />
+      </s:complexType>
+      <s:simpleType name="systemroleSystemroletype">
+        <s:restriction base="s:string">
+          <s:enumeration value="SysAdmin" />
+          <s:enumeration value="SysSupport" />
+          <s:enumeration value="Creator" />
+          <s:enumeration value="AccountAdmin" />
+          <s:enumeration value="User" />
+          <s:enumeration value="None" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="institutionrole">
+        <s:attribute name="institutionroletype" type="s1:institutionroleInstitutionroletype" use="required" />
+        <s:attribute name="primaryrole" type="s1:institutionrolePrimaryrole" use="required" />
+      </s:complexType>
+      <s:simpleType name="institutionroleInstitutionroletype">
+        <s:restriction base="s:string">
+          <s:enumeration value="Student" />
+          <s:enumeration value="Faculty" />
+          <s:enumeration value="Staff" />
+          <s:enumeration value="Alumni" />
+          <s:enumeration value="ProspectiveStudent" />
+          <s:enumeration value="Guest" />
+          <s:enumeration value="Other" />
+          <s:enumeration value="Administrator" />
+          <s:enumeration value="Observer" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="institutionrolePrimaryrole">
+        <s:restriction base="s:string">
+          <s:enumeration value="Yes" />
+          <s:enumeration value="No" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="roleRecstatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="1" />
+          <s:enumeration value="2" />
+          <s:enumeration value="3" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="group">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s1:comments" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="sourcedid" type="s1:sourcedid" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="grouptype" type="s1:grouptype" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s1:description" />
+          <s:element minOccurs="0" maxOccurs="1" name="org" type="s1:org" />
+          <s:element minOccurs="0" maxOccurs="1" name="timeframe" type="s1:timeframe" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrollcontrol" type="s1:enrollcontrol" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="relationship" type="s1:relationship" />
+          <s:element minOccurs="0" maxOccurs="1" name="datasource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="extension" type="s1:extension" />
+        </s:sequence>
+        <s:attribute name="recstatus" type="s1:roleRecstatus" />
+      </s:complexType>
+      <s:complexType name="grouptype">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="scheme" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="typevalue" type="s1:typevalue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="typevalue">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="level" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="description">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="short" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="long" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="full" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="org">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="orgname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="orgunit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="timeframe">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="begin" type="s1:begin" />
+          <s:element minOccurs="0" maxOccurs="1" name="end" type="s1:end" />
+          <s:element minOccurs="0" maxOccurs="1" name="adminperiod" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="begin">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="restrict" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="end">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="restrict" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="enrollcontrol">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="enrollaccept" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="enrollallowed" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="relationship">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="sourcedid" type="s1:sourcedid" />
+          <s:element minOccurs="0" maxOccurs="1" name="label" type="s:string" />
+        </s:sequence>
+        <s:attribute default="1" name="relation" type="s1:relationshipRelation" />
+      </s:complexType>
+      <s:simpleType name="relationshipRelation">
+        <s:restriction base="s:string">
+          <s:enumeration value="1" />
+          <s:enumeration value="2" />
+          <s:enumeration value="3" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="membership">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s1:comments" />
+          <s:element minOccurs="0" maxOccurs="1" name="sourcedid" type="s1:sourcedid" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="member" type="s1:member" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="member">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s1:comments" />
+          <s:element minOccurs="0" maxOccurs="1" name="sourcedid" type="s1:sourcedid" />
+          <s:element minOccurs="0" maxOccurs="1" name="idtype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="role" type="s1:role" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="role">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="subrole" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="userid" type="s1:userid" />
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s1:comments" />
+          <s:element minOccurs="0" maxOccurs="1" name="datetime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="timeframe" type="s1:timeframe" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="interimresult" type="s1:interimresult" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="finalresult" type="s1:finalresult" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="datasource" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="extension" type="s1:extension" />
+        </s:sequence>
+        <s:attribute name="recstatus" type="s1:roleRecstatus" />
+        <s:attribute default="01" name="roletype" type="s1:roleRoletype" />
+      </s:complexType>
+      <s:complexType name="interimresult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="mode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="values" type="s1:values" />
+          <s:element minOccurs="0" maxOccurs="1" name="result" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s1:comments" />
+        </s:sequence>
+        <s:attribute name="resulttype" type="s:string" />
+      </s:complexType>
+      <s:complexType name="values">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="list" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="min" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="max" type="s:string" />
+        </s:sequence>
+        <s:attribute name="valuetype" type="s1:valuesValuetype" use="required" />
+      </s:complexType>
+      <s:simpleType name="valuesValuetype">
+        <s:restriction base="s:string">
+          <s:enumeration value="0" />
+          <s:enumeration value="1" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="finalresult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="mode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="values" type="s1:values" />
+          <s:element minOccurs="0" maxOccurs="1" name="result" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="comments" type="s1:comments" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="roleRoletype">
+        <s:restriction base="s:string">
+          <s:enumeration value="01" />
+          <s:enumeration value="02" />
+          <s:enumeration value="03" />
+          <s:enumeration value="04" />
+          <s:enumeration value="05" />
+          <s:enumeration value="06" />
+          <s:enumeration value="07" />
+          <s:enumeration value="08" />
+          <s:enumeration value="Learner" />
+          <s:enumeration value="Instructor" />
+          <s:enumeration value="ContentDeveloper" />
+          <s:enumeration value="Member" />
+          <s:enumeration value="Manager" />
+          <s:enumeration value="Mentor" />
+          <s:enumeration value="Administrator" />
+          <s:enumeration value="TeachingAssistant" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ProcessSingleRequestResult" type="s1:enterprise" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ProcessRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessRequest" />
+  </wsdl:message>
+  <wsdl:message name="ProcessRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcessSingleRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcessSingleRequest" />
+  </wsdl:message>
+  <wsdl:message name="ProcessSingleRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcessSingleRequestResponse" />
+  </wsdl:message>
+  <wsdl:portType name="UserManagementSoap">
+    <wsdl:operation name="ProcessRequest">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Process enterprise conforming to IMS specification as batch enterprise for user management.</documentation>
+      <wsdl:input message="tns:ProcessRequestSoapIn" />
+      <wsdl:output message="tns:ProcessRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcessSingleRequest">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Process enterprise conforming to IMS specification as single near time enterprise for user management.</documentation>
+      <wsdl:input message="tns:ProcessSingleRequestSoapIn" />
+      <wsdl:output message="tns:ProcessSingleRequestSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserManagementSoap" type="tns:UserManagementSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ProcessRequest">
+      <soap:operation soapAction="http://CampusApi.eCollege.com/UserManagement/V1_6/ProcessRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcessSingleRequest">
+      <soap:operation soapAction="http://CampusApi.eCollege.com/UserManagement/V1_6/ProcessSingleRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserManagement">
+    <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">The UserManagement Service provides services for batch or near real time access to the eCollege system for user management.</documentation>
+    <wsdl:port name="UserManagementSoap" binding="tns:UserManagementSoap">
+      <soap:address location="https://campusapi.ecollege.com/UserManagement/v1_6/UserManagementServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

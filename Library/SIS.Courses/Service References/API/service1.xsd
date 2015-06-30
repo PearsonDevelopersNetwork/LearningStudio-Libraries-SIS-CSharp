@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" elementFormDefault="qualified" targetNamespace="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ContentCopyRequestEx">
+    <xs:sequence>
+      <xs:element name="ClientString" nillable="true" type="xs:string" />
+      <xs:element name="CopyContentOptions" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DestinationCourseIdentifiers" nillable="true" type="tns:ArrayOfCourseIdentifier" />
+      <xs:element name="SourceClientSortString" nillable="true" type="xs:string" />
+      <xs:element name="SourceCourseIdentifier" nillable="true" type="tns:CourseIdentifier" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContentCopyRequestEx" nillable="true" type="tns:ContentCopyRequestEx" />
+  <xs:complexType name="ArrayOfCourseIdentifier">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseIdentifier" nillable="true" type="tns:CourseIdentifier" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCourseIdentifier" nillable="true" type="tns:ArrayOfCourseIdentifier" />
+  <xs:complexType name="CourseIdentifier">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CourseCallNumbers" nillable="true" type="tns:ArrayOfCourseCallNumber" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MappingType" type="tns:MappedIDType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CourseIdentifier" nillable="true" type="tns:CourseIdentifier" />
+  <xs:complexType name="ArrayOfCourseCallNumber">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseCallNumber" nillable="true" type="tns:CourseCallNumber" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCourseCallNumber" nillable="true" type="tns:ArrayOfCourseCallNumber" />
+  <xs:complexType name="CourseCallNumber">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClientCallNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClientSortString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClientString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExpiresOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CourseCallNumber" nillable="true" type="tns:CourseCallNumber" />
+  <xs:simpleType name="MappedIDType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CallNumber" />
+      <xs:enumeration value="SourcedID" />
+      <xs:enumeration value="CourseID" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MappedIDType" nillable="true" type="tns:MappedIDType" />
+  <xs:complexType name="ContentCopyStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" nillable="true" type="tns:CourseIdentifier" />
+      <xs:element minOccurs="0" name="JobStatusID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContentCopyStatus" nillable="true" type="tns:ContentCopyStatus" />
+  <xs:complexType name="CourseSectionCopyRequestEx">
+    <xs:sequence>
+      <xs:element name="ClientString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CourseCallNumbersExpireOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DestinationClientSortString" nillable="true" type="xs:string" />
+      <xs:element name="DestinationCourseIdentifiers" nillable="true" type="tns:ArrayOfCourseIdentifier" />
+      <xs:element minOccurs="0" name="DestinationDisplayCourseCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DestinationSectionDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DestinationSectionNumber" type="xs:long" />
+      <xs:element minOccurs="0" name="DestinationSectionTitle" nillable="true" type="xs:string" />
+      <xs:element name="DestinationTermID" type="xs:long" />
+      <xs:element name="DestinationTermIdentifier" nillable="true" type="tns:TermIdentifier" />
+      <xs:element minOccurs="0" name="IsACrossList" type="xs:boolean" />
+      <xs:element name="SourceCourseIdentifier" nillable="true" type="tns:CourseIdentifier" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CourseSectionCopyRequestEx" nillable="true" type="tns:CourseSectionCopyRequestEx" />
+  <xs:complexType name="TermIdentifier">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MappingType" type="tns:MappedTermIDType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TermIdentifier" nillable="true" type="tns:TermIdentifier" />
+  <xs:simpleType name="MappedTermIDType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TermID">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SourcedID">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MappedTermIDType" nillable="true" type="tns:MappedTermIDType" />
+  <xs:complexType name="CopyCourseRequestEx">
+    <xs:sequence>
+      <xs:element name="ClientString" nillable="true" type="xs:string" />
+      <xs:element name="CopyContentOptions" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CourseCallNumbersExpireOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DestinationClientSortString" nillable="true" type="xs:string" />
+      <xs:element name="DestinationCourseIdentifiers" nillable="true" type="tns:ArrayOfCourseIdentifier" />
+      <xs:element minOccurs="0" name="DestinationDisplayCourseCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DestinationSectionDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DestinationSectionNumber" type="xs:long" />
+      <xs:element minOccurs="0" name="DestinationSectionTitle" nillable="true" type="xs:string" />
+      <xs:element name="DestinationTermID" type="xs:long" />
+      <xs:element name="DestinationTermIdentifier" nillable="true" type="tns:TermIdentifier" />
+      <xs:element name="SourceClientSortString" nillable="true" type="xs:string" />
+      <xs:element name="SourceCourseIdentifier" nillable="true" type="tns:CourseIdentifier" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CopyCourseRequestEx" nillable="true" type="tns:CopyCourseRequestEx" />
+  <xs:complexType name="CourseMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BillingClassification" type="tns:BillingClassificationType" />
+      <xs:element minOccurs="0" name="ClientString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CourseCallNumbersExpireOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CourseTemplateId" type="xs:long" />
+      <xs:element minOccurs="0" name="CourseVersion" type="tns:CourseType" />
+      <xs:element name="DestinationCourseIdentifier" nillable="true" type="tns:CourseIdentifier" />
+      <xs:element name="DestinationTermIdentifier" nillable="true" type="tns:TermIdentifier" />
+      <xs:element minOccurs="0" name="DisplayCourseCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsEnrollable" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PrimaryClientSortString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistrationLimit" type="xs:long" />
+      <xs:element minOccurs="0" name="SectionDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SectionNumber" type="xs:long" />
+      <xs:element minOccurs="0" name="SectionTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TermId" type="xs:long" />
+      <xs:element minOccurs="0" name="WaitListLimit" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CourseMessage" nillable="true" type="tns:CourseMessage" />
+  <xs:simpleType name="BillingClassificationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NotSet" />
+      <xs:enumeration value="ECourse">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ECompanion">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Evaluation">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Hybrid">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="BillingClassificationType" nillable="true" type="tns:BillingClassificationType" />
+  <xs:simpleType name="CourseType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Undefined" />
+      <xs:enumeration value="DotNext">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Legacy">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CourseType" nillable="true" type="tns:CourseType" />
+  <xs:complexType name="CourseKeysMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SectionKey" type="xs:long" />
+      <xs:element minOccurs="0" name="TemplateKey" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CourseKeysMessage" nillable="true" type="tns:CourseKeysMessage" />
+  <xs:complexType name="CourseSectionUpdateRequest">
+    <xs:sequence>
+      <xs:element name="ClientString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CourseCallNumbersExpireOn" type="xs:dateTime" />
+      <xs:element name="DestinationCourseIdentifier" nillable="true" type="tns:CourseIdentifier" />
+      <xs:element minOccurs="0" name="DestinationDisplayCourseCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DestinationSectionDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DestinationSectionNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="DestinationSectionTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsEnrollable" nillable="true" type="xs:boolean" />
+      <xs:element name="PrimaryClientSortString" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CourseSectionUpdateRequest" nillable="true" type="tns:CourseSectionUpdateRequest" />
+  <xs:complexType name="CallNumbersRemoveRequest">
+    <xs:sequence>
+      <xs:element name="ClientString" nillable="true" type="xs:string" />
+      <xs:element name="DestinationCourseIdentifier" nillable="true" type="tns:CourseIdentifier" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CallNumbersRemoveRequest" nillable="true" type="tns:CallNumbersRemoveRequest" />
+</xs:schema>

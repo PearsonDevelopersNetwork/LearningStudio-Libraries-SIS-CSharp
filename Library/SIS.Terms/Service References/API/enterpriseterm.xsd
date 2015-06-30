@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:eclg:coursecopy:enterpriseterm" elementFormDefault="qualified" targetNamespace="urn:eclg:coursecopy:enterpriseterm" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" />
+  <xs:element name="CreateStandardTerm">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="standardTermRequest" nillable="true" type="q1:StandardTermEx" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateStandardTermResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="CreateStandardTermResult" nillable="true" type="q2:TermIdentifier" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateStandardTerm">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="standardTermUpdateRequest" nillable="true" type="q3:StandardTermEx" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateStandardTermResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" minOccurs="0" name="UpdateStandardTermResult" nillable="true" type="q4:TermIdentifier" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

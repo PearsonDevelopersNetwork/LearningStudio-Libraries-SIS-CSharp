@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>LearningStudio SIS API Libraries in C#</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+		<link href='http://fonts.googleapis.com/css?family=Raleway:500,700|Roboto:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../assets/css/normalize.css">
+        <link rel="stylesheet" href="../assets/css/main.css">
+        <link rel="stylesheet" href="../assets/css/prism.css">
+        <script src="../assets/js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+	<div id="MastBar">
+		<div id="TopColorbar"> </div>
+		<div id="TitleBar">
+			<div>
+				<a href="http://developer.pearson.com" target="_blank" title="Home"><img src="../assets/pdn-header-sm.PNG" /></a>
+				<a href="http://developer.pearson.com" target="_blank">developer.pearson.com</a>
+			</div>
+		</div>
+	</div>
+		
+	<article> 
+		<h1>SIS API: Users</h1>		
+		<blockquote>
+			<h3>Documentation</h3>
+			<p>The overview documentation for the Users API is <a href="http://developer.pearson.com/learningstudio/users-and-enrollments">available here</a>.</p>
+		</blockquote>
+		<blockquote>
+			<h3>API Credentials</h3>
+			<p>You will need credentials to work with the APIs.</p>
+			<ul>
+				<li><b>Credentials</b>: The <i>Username</i>, and <i>Password</i> identifies the specific LearningStudio campus your API requests are directed to.</li>
+			</ul>
+			<p>You can get credentials for our Sandbox Campus by creating an app on the PDN. <a href="http://developer.pearson.com/learningstudio/get-learningstudio-api-key-and-sandbox">Learn more here</a>.
+		</blockquote>
+
+		<h4>Contents</h4>
+		<ul>
+			<li><a href="#Introduction">Introduction</a></li>
+			<li><a href="#Usage">Using Users</a>
+				<ul>
+					<li><a href="#Start">Get Started - App.Config</a></li>
+					<li><a href="#Initialize">Instantiating the Library</a></li>
+					<li><a href="#Methods">Available Methods</a>
+						<ul>
+							<li><a href="#UserStructure">Users Structure</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+				
+		<a name="Introduction"></a>
+		<h2>Introduction</h2>
+		<p>The Users library facilitates working with our Users SIS API for LearningStudio.  This API is used to create new users, update existing users, and enroll users into course sections in LearningStudio.</p> 
+		<p>This library provides a C#-specific method for the synchronous ProcessSingleRequest Users API SOAP operation.  The complete documentation for the method is linked in the Methods section, below. Note that at this the asynchronous ProcessRequest operation is not supported by the Users library. </p> 
+		<p>Lastly, the Users API requires the use of a WS-Security <b>UsernameToken</b> for authentication purposes. WS-Security SOAP message headers are onerous, and commonly cause interoperability issues between API clients and services so this library handles the SOAP message heavy lifting for you.</p> 
+		
+		<hr>
+		
+		<a name="Usage"></a>
+		<h2>Using Users</h2> 		
+		
+		<a name="Start"></a>
+		<h3>App.Config</h3>
+		<p>Note that the underlying Users app.config file will not be inherently leveraged by your application.  You'll want to copy the log4net and system.serviceModel sections from the Users app.config file into the App.Config file of your application.  At runtime the application config settings are loaded from the primary application and not the underlying class library, or in this case the Users library.</p>
+
+		<h4>log4net Config</h4>
+		<p>The log4net configuration section controls the behavior of the logging from the Users library.  This section can be modified as needed by your application and the values in the Users app.config file should simply be considered default values.</p>
+		<blockquote>
+			<pre><code class="language-xml">&lt;configSections&gt;
+  &lt;section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler,Log4net"/&gt;
+&lt;/configSections&gt;
+&lt;log4net&gt;
+  &lt;appender name="LogFileAppender" type="log4net.Appender.RollingFileAppender" &gt;
+    &lt;param name="File" value="log-file.txt" /&gt;
+    &lt;param name="AppendToFile" value="true" /&gt;
+    &lt;rollingStyle value="Size" /&gt;
+    &lt;maxSizeRollBackups value="10" /&gt;
+    &lt;maximumFileSize value="10MB" /&gt;
+    &lt;staticLogFileName value="true" /&gt;
+    &lt;layout type="log4net.Layout.PatternLayout"&gt;
+      &lt;param name="ConversionPattern" value="%date [%thread] %-5level %logger [%property{NDC}] - %message%newline" /&gt;
+    &lt;/layout&gt;
+  &lt;/appender&gt;
+  &lt;root&gt;
+    &lt;level value="DEBUG" /&gt;
+    &lt;appender-ref ref="LogFileAppender" /&gt;
+  &lt;/root&gt;
+&lt;/log4net&gt;</code></pre>
+		</blockquote>
+
+		<h4>system.serviceModel Config</h4>
+		<p>The system.serviceModel configuration section controls the underlying SOAP binding and message configuration settings needed for the Users API.  You'll want to leave this section alone and copy it "as-is" into your application's App.Config file.</p>
+		<blockquote>
+			<pre><code class="language-xml">&lt;system.serviceModel&gt;
+  &lt;bindings&gt;
+    &lt;basicHttpsBinding&gt;
+      &lt;binding name="UserManagement"&gt;
+        &lt;security mode="Transport" /&gt;
+      &lt;/binding&gt;
+    &lt;/basicHttpsBinding&gt;
+  &lt;/bindings&gt;
+  &lt;client&gt;
+    &lt;endpoint address="https://campusapi.ecollege.com/UserManagement/v1_6/UserManagementServices.asmx"
+        binding="basicHttpsBinding" bindingConfiguration="UserManagement"
+        contract="API.UserManagementSoap" name="UserManagement" /&gt;
+  &lt;/client&gt;
+&lt;/system.serviceModel&gt;</code></pre>
+		</blockquote>
+
+		<a name="Initialize"></a>
+		<h3>Instantiating the Library</h3>		
+		<h4>Setup</h4>
+		<p>To begin, include the classes you'll be instantiating.</p>
+		<pre><code class="language-csharp">using Com.Pearson.Pdn.Learningstudio.SIS.Users;
+using Com.Pearson.Pdn.Learningstudio.SIS.Users.Request;</code></pre>
+
+		<h4>Authentication</h4>
+		<p>You'll need to provide the authentication details for the Campus you are using (the Campus's username and password) so the TermService class can handle authentication. The <code>APIConfig</code> class is a generic carrier for the configuration information for authentication. You'll add the information you need using the following methods.</p> 
+		<pre><code class="language-csharp">APIConfig config = new APIConfig();
+config.Username = apiUsername;
+config.Password = apiPassword;</code></pre>
+
+		<h4>Requests</h4>
+		
+		<p>Next, you'll instantiate the <code>UserService</code> class, which handles all the work of making an API call and provides a C#-specific method for the Users API. When creating the object, pass the APIConfig as the only parameter:</p>
+
+		<pre><code class="language-csharp">UserService userService = new UserService(config);</code></pre>
+		
+		<p>Finally, use the method detailed below to make requests.</p>
+
+
+		<h4>Results</h4>
+		<p>The Users method will return a <code>Response</code> object. This object has the following properties:</p>
+		<table> 
+			<tr>
+				<th>Property</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><code>string ContentType</code></td>
+				<td>The type of response, either <code>XML</code> or <code>Text</code>.</td>
+			</tr>
+			<tr>
+				<td><code>string Content</code></td>
+				<td>The text-based body of the response from the API. It is returned as a string of either <code>XML</code> or <code>Text</code>, and is not parsed into a native object.</td>
+			</tr>
+			<tr>
+				<th class="middle" colspan="2">About the API Request</th>
+			</tr>
+			<tr>
+				<td><code>int PersonStatusCode</code></td>
+				<td>The Status Code for the User part of the API request, i.e. the user creation or update. Example:<code>0</code> for success or a negative number like, <code>-2147219966</code>, to indicate a failure.</td>
+			</tr>
+			<tr>
+				<td><code>string PersonStatusMessage</code></td>
+				<td>The Status Message for the User part of the API request. Example: "User created" </td>
+			</tr>
+            <tr>
+                <td><code>int MembershipStatusCode</code></td>
+                <td>The Status Code for the Enrollment part of the API request. Example: <code>0</code> for success or a negative number like, <code>-2147219966</code>, to indicate a failure.</td>
+            </tr>
+            <tr>
+                <td><code>string MembershipStatusMessage</code></td>
+                <td>The Status Message for the Enrollment part of the API request. Example: "Course enrollment successful"</td>
+            </tr>
+		</table>
+
+
+		<h4>Example</h4>
+<pre class="line-numbers"><code class="language-csharp">using Com.Pearson.Pdn.Learningstudio.SIS.Users;
+using Com.Pearson.Pdn.Learningstudio.SIS.Users.Request;
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SISAPIUsersExample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // The API Credentials
+            string apiUsername = "";
+            string apiPassword = "";
+
+            // Best practice is to use the Campus Client String as the Source value
+            string source = "";
+
+            // External User identifier; typically from the SIS System
+            string id = "";
+
+            // User's username in LearningStudio; should match your IdM value if using SSO
+            string loginId = "";
+
+            // User's password in LearningStudio; can be omitted depending on Campus API settings
+            string password = "";
+
+            // User's First Name
+            string firstName = "";
+
+            // User's Last Name
+            string lastName = "";
+
+            // User's primary Email Address
+            string email = "";
+
+            // Identifier for the Course Section the user will be enrolled into
+            string callNumber = "";
+
+            // Identifier for the Role the user should be enrolled in the Course Section with
+            string roleId = "";
+
+            // Initialize and set the API Credentials
+            APIConfig config = new APIConfig();
+            config.Username = apiUsername;
+            config.Password = apiPassword;
+
+            // Initialize and set the CreateStandardTermRequest
+            ProcessSingleRequest request = new ProcessSingleRequest();
+            request.Source = source;
+            request.Id = id;
+            request.LoginId = loginId;
+            request.Password = password;
+            request.FirstName = firstName;
+            request.LastName = lastName;
+            request.Email = email;
+            request.CallNumber = callNumber;
+            request.RoleId = roleId;
+
+            // Initialize the UserService class
+            UserService userService = new UserService(config);
+            Response response = null;
+
+            try
+            {
+                // Send the Request and capture the Response from the Term API
+                response = userService.ProcessSingleRequest(request);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception from ProcessSingleRequest: {0}", ex);
+                Console.ReadLine();
+            }
+
+            Console.WriteLine("User Results = {0}: {1}" + Environment.NewLine, response.PersonStatusCode, response.PersonStatusMessage);
+            Console.WriteLine("Enrollment Results = {0}: {1}" + Environment.NewLine, response.MembershipStatusCode, response.MembershipStatusMessage);
+            Console.WriteLine("ContentType: {0}" + Environment.NewLine, response.ContentType);
+            Console.WriteLine("Content: {0}", response.Content);
+            Console.ReadLine();
+        }
+    }
+}
+    </code></pre>
+
+		
+	<hr>
+	
+	<a name="Methods"></a>
+	<h3>Available Methods</h3>
+
+	<a name="UserStructure"></a>
+	<h4>User Structure</h4>
+	
+	<p>A user is someone who has access to LearningStudio, typically by being enrolled into 1+ course sections at a given academic time period.  Each Campus can have it's own defined set of user roles and abilities, but all are derived from a few basic types.  The following are a couple of basic role types and typical permissions for users within a course section:</p>
+    <ul>
+        <li><b>Student:</b> Cannot modify course materials or grades. Some content is restricted from students based on time, grades, group assignment, or teacher-only material.</li>
+        <li><b>Professor:</b> Can view all content items and usually modify course materials, assign grades, etc.</li>
+    </ul>
+    <p>Roles are specified in User API requests via the <code>RoleId</code> property which is a numeric enumerable value.  For a Student the default <code>RoleId</code> value is "2", and for a Professor the default value is "1".  However, for a given Campus the specific values implemented can vary.  Reach out to your Pearson representative for a list of the Student and Professor <code>RoleId</cdoe> values for a given LearningStudio Campus.</p>
+        
+	<br>
+	
+	<pre><code class="language-csharp">ProcessSingleRequest(ProcessSingleRequest request)</code></pre>
+	<ul>
+	<li>Combines both user creation and user enrollment.</li>
+	<li>With this method you can:
+        <ul>
+            <li>Create a user</li>
+            <li>Update user details</li>
+            <li>Enroll a user in a course section</li>
+            <li>Drop a user from a course section</li>
+        </ul>
+    </li>
+	<li><a href="http://developer.pearson.com/learningstudio/creating-and-updating-users-enrollments">API Documentation</a></li>
+	<li><a href="../AutoDocs/Help/html/f55ff438-9aa3-d789-ef6a-d36ee535e077.htm">Auto-generated Documentation</a></li>
+	</ul>
+	
+
+	</article> 	
+	<footer>
+		&copy;2015 Pearson Education Inc. Libraries released under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache 2.0 License</a>. For help with these libraries or the APIs, please use the <a href="https://community.pdn.pearson.com" target="_blank">PDN Developer Community</a>.
+	</footer>
+        <script src="../assets/js/prism.js"></script>
+
+    </body>
+</html>

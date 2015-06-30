@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>LearningStudio SIS API Libraries in C#</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+		<link href='http://fonts.googleapis.com/css?family=Raleway:500,700|Roboto:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../assets/css/normalize.css">
+        <link rel="stylesheet" href="../assets/css/main.css">
+        <link rel="stylesheet" href="../assets/css/prism.css">
+        <script src="../assets/js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+	<div id="MastBar">
+		<div id="TopColorbar"> </div>
+		<div id="TitleBar">
+			<div>
+				<a href="http://developer.pearson.com" target="_blank" title="Home"><img src="../assets/pdn-header-sm.PNG" /></a>
+				<a href="http://developer.pearson.com" target="_blank">developer.pearson.com</a>
+			</div>
+		</div>
+	</div>
+		
+	<article> 
+		<h1>SIS API: Terms</h1>		
+		<blockquote>
+			<h3>Documentation</h3>
+			<p>The overview documentation for the Terms API is <a href="http://developer.pearson.com/learningstudio/terms-and-courses">available here</a>.</p>
+		</blockquote>
+		<blockquote>
+			<h3>API Credentials</h3>
+			<p>You will need credentials to work with the APIs.</p>
+			<ul>
+				<li><b>Credentials</b>: The <i>Username</i>, and <i>Password</i> identifies the specific LearningStudio campus your API requests are directed to.</li>
+			</ul>
+			<p>You can get credentials for our Sandbox Campus by creating an app on the PDN. <a href="http://developer.pearson.com/learningstudio/get-learningstudio-api-key-and-sandbox">Learn more here</a>.
+		</blockquote>
+
+		<h4>Contents</h4>
+		<ul>
+			<li><a href="#Introduction">Introduction</a></li>
+			<li><a href="#Usage">Using Terms</a>
+				<ul>
+					<li><a href="#Start">Get Started - App.Config</a></li>
+					<li><a href="#Initialize">Instantiating the Library</a></li>
+					<li><a href="#Methods">Available Methods</a>
+						<ul>
+							<li><a href="#TermStructure">Terms Structure</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+				
+		<a name="Introduction"></a>
+		<h2>Introduction</h2>
+		<p>The Terms library facilitates working with our Terms SIS API for LearningStudio.  This API is used to create new terms, and update existing terms in LearningStudio.</p> 
+		<p>This library provides a C#-specific method for each of the Terms API SOAP operations.  The complete documentation for each method is linked in the Methods section, below. </p> 
+		<p>Lastly, the Terms API requires the use of a WS-Security <b>UsernameToken</b> for authentication purposes. WS-Security SOAP message headers are onerous, and commonly cause interoperability issues between API clients and services so this library handles the SOAP message heavy lifting for you.</p> 
+		
+		<hr>
+		
+		<a name="Usage"></a>
+		<h2>Using Terms</h2> 		
+		
+		<a name="Start"></a>
+		<h3>App.Config</h3>
+		<p>Note that the underlying Terms app.config file will not be inherently leveraged by your application.  You'll want to copy the log4net and system.serviceModel sections from the Terms app.config file into the App.Config file of your application.  At runtime the application config settings are loaded from the primary application and not the underlying class library, or in this case the Terms Library.</p>
+
+		<h4>log4net Config</h4>
+		<p>The log4net configuration section controls the behavior of the logging from the Terms Library.  This section can be modified as needed by your application and the values in the Terms app.config file should simply be considered default values.</p>
+		<blockquote>
+			<pre><code class="language-xml">&lt;configSections&gt;
+  &lt;section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler,Log4net"/&gt;
+&lt;/configSections&gt;
+&lt;log4net&gt;
+  &lt;appender name="LogFileAppender" type="log4net.Appender.RollingFileAppender" &gt;
+    &lt;param name="File" value="log-file.txt" /&gt;
+    &lt;param name="AppendToFile" value="true" /&gt;
+    &lt;rollingStyle value="Size" /&gt;
+    &lt;maxSizeRollBackups value="10" /&gt;
+    &lt;maximumFileSize value="10MB" /&gt;
+    &lt;staticLogFileName value="true" /&gt;
+    &lt;layout type="log4net.Layout.PatternLayout"&gt;
+      &lt;param name="ConversionPattern" value="%date [%thread] %-5level %logger [%property{NDC}] - %message%newline" /&gt;
+    &lt;/layout&gt;
+  &lt;/appender&gt;
+  &lt;root&gt;
+    &lt;level value="DEBUG" /&gt;
+    &lt;appender-ref ref="LogFileAppender" /&gt;
+  &lt;/root&gt;
+&lt;/log4net&gt;</code></pre>
+		</blockquote>
+
+		<h4>system.serviceModel Config</h4>
+		<p>The system.serviceModel configuration section controls the underlying SOAP binding and message configuration settings needed for the Terms API.  You'll want to leave this section alone and copy it "as-is" into your application's App.Config file.</p>
+		<blockquote>
+			<pre><code class="language-xml">&lt;system.serviceModel&gt;
+  &lt;behaviors&gt;
+    &lt;endpointBehaviors&gt;
+      &lt;behavior name="EnterpriseTermService"&gt;
+        &lt;clientVia viaUri="https://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseTerm.svc"/&gt;
+      &lt;/behavior&gt;
+    &lt;/endpointBehaviors&gt;
+  &lt;/behaviors&gt;
+  &lt;standardEndpoints&gt;
+    &lt;webHttpEndpoint&gt;
+      &lt;standardEndpoint name="EnterpriseTermService"&gt;
+        &lt;security mode="Transport"&gt;
+          &lt;transport clientCredentialType="Basic"/&gt;
+        &lt;/security&gt;
+      &lt;/standardEndpoint&gt;
+    &lt;/webHttpEndpoint&gt;
+  &lt;/standardEndpoints&gt;
+  &lt;bindings&gt;
+    &lt;customBinding&gt;
+      &lt;binding name="CustomBinding_EnterpriseTermService" sendTimeout="00:05:00"&gt;
+        &lt;security defaultAlgorithmSuite="Default" authenticationMode="UserNameOverTransport"
+            requireDerivedKeys="true" includeTimestamp="true" messageSecurityVersion="WSSecurity11WSTrustFebruary2005WSSecureConversationFebruary2005WSSecurityPolicy11BasicSecurityProfile10"&gt;
+          &lt;localClientSettings detectReplays="false" /&gt;
+          &lt;localServiceSettings detectReplays="false" /&gt;
+        &lt;/security&gt;
+        &lt;textMessageEncoding /&gt;
+        &lt;httpsTransport authenticationScheme="Basic"/&gt;
+      &lt;/binding&gt;
+    &lt;/customBinding&gt;
+  &lt;/bindings&gt;
+  &lt;client&gt;
+    &lt;endpoint address="http://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseTerm.svc"
+        behaviorConfiguration="EnterpriseTermService" binding="customBinding" bindingConfiguration="CustomBinding_EnterpriseTermService"
+        contract="API.EnterpriseTermService" name="CustomBinding_EnterpriseTermService" /&gt;
+  &lt;/client&gt;
+&lt;/system.serviceModel&gt;</code></pre>
+		</blockquote>
+
+		<a name="Initialize"></a>
+		<h3>Instantiating the Library</h3>		
+		<h4>Setup</h4>
+		<p>To begin, include the classes you'll be instantiating.</p>
+		<pre><code class="language-csharp">using Com.Pearson.Pdn.Learningstudio.SIS.Terms;
+using Com.Pearson.Pdn.Learningstudio.SIS.Terms.Request;</code></pre>
+
+		<h4>Authentication</h4>
+		<p>You'll need to provide the authentication details for the Campus you are using (the Campus's username and password) so the TermService class can handle authentication. The <code>APIConfig</code> class is a generic carrier for the configuration information for authentication. You'll add the information you need using the following methods.</p> 
+		<pre><code class="language-csharp">APIConfig config = new APIConfig();
+config.Username = apiUsername;
+config.Password = apiPassword;</code></pre>
+
+		<h4>Requests</h4>
+		
+		<p>Next, you'll instantiate the <code>TermService</code> class, which handles all the work of making an API call and provides C#-specific methods for the Terms API. When creating the object, pass the APIConfig as the only parameter:</p>
+
+		<pre><code class="language-csharp">TermService termService = new TermService(config);</code></pre>
+		
+		<p>Finally, use the methods detailed below to make requests.</p>
+
+
+		<h4>Results</h4>
+		<p>All of the Terms methods will return a <code>Response</code> object. This object has the following properties:</p>
+		<table> 
+			<tr>
+				<th>Property</th>
+				<th>Description</th>
+			</tr>
+			<tr>
+				<td><code>string ContentType</code></td>
+				<td>The type of response, either <code>XML</code> or <code>Text</code>.</td>
+			</tr>
+			<tr>
+				<td><code>string Content</code></td>
+				<td>The text-based body of the response from the API. It is returned as a string of either <code>XML</code> or <code>Text</code>, and is not parsed into a native object.</td>
+			</tr>
+			<tr>
+				<th class="middle" colspan="2">About the API Request</th>
+			</tr>
+			<tr>
+				<td><code>string StatusCode</code></td>
+				<td>The Status Code from the API request. Example: <code>"Ok"</code>, <code>"Failure"</code>, etc. </td>
+			</tr>
+			<tr>
+				<td><code>string StatusMessage</code></td>
+				<td>The Status Message from the API request. Example: "Course Creation Successful!"</td>
+			</tr>
+		</table>
+
+
+		<h4>Example</h4>
+<pre class="line-numbers"><code class="language-csharp">using Com.Pearson.Pdn.Learningstudio.SIS.Terms;
+using Com.Pearson.Pdn.Learningstudio.SIS.Terms.Request;
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SISAPITermsExample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // The API Credentials
+            string apiUsername = "";
+            string apiPassword = "";
+
+            // Identifies the node the Term will be associated with; use "All" for all nodes
+            string[] assocatedEPOrganization = new string[] { "" };
+
+            // Identifier the LearningStudio Campus
+            string clientString = "";
+
+            // External Term identifier; typically from the SIS system
+            string termIdentifier = "";
+
+            // Course start date for courses added to this Term
+            DateTime courseActualStartDate = Convert.ToDateTime("");
+
+            // Course end date for courses added to this Term
+            DateTime courseActualEndDate = Convert.ToDateTime("");
+
+            // Description of the new Term
+            string description = "";
+
+            // The Last Date to Add; best practice is to set it to (CourseActualEndDate - 1 Day)
+            DateTime dropAddPeriodStartDate = courseActualEndDate.AddDays(-1);
+
+            // The Last Date to Drop; best practice is to set it to the CourseActualEndDate
+            DateTime dropAddPeriodEndDate = courseActualEndDate;
+
+            // Uniquely identifies the new Term; note the colon delimiter in the format
+            string termSourcedId = String.Format("{0}:{1}", clientString, termIdentifier);
+            
+            // The name of the new Term
+            string name = "";
+
+            // The Term start date
+            DateTime termStartDate = Convert.ToDateTime("");
+
+            // The Term end date
+            DateTime termEndDate = Convert.ToDateTime("");
+
+            // Initialize and set the API Credentials
+            APIConfig config = new APIConfig();
+            config.Username = apiUsername;
+            config.Password = apiPassword;
+
+            // Initialize and set the CreateStandardTermRequest
+            CreateStandardTermRequest request = new CreateStandardTermRequest();
+            request.AssociatedEPOrganization = assocatedEPOrganization;
+            // Set the Billing Type to eCourse
+            request.BillingClassificationType = BillingClassificationType.ECourse;
+            request.ClientString = clientString;
+            request.CourseActualStartDate = courseActualStartDate;
+            request.CourseActualEndDate = courseActualEndDate;
+            request.Description = description;
+            request.DropAddPeriodStartDate = dropAddPeriodStartDate;
+            request.DropAddPeriodEndDate = dropAddPeriodEndDate;
+            request.TermSourcedId = termSourcedId;
+            request.Name = name;
+            request.TermStartDate = termStartDate;
+            request.TermEndDate = termEndDate;
+
+            // Initialize the TermService class
+            TermService termService = new TermService(config);
+            Response response = null;
+
+            try
+            {
+                // Send the Request and capture the Response from the Term API
+                response = termService.CreateStandardTerm(request);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception from CreateStandardTerm: {0}", ex);
+                Console.ReadLine();
+            }
+
+            Console.WriteLine("CopyCourseSectionAndContent Results = {0}: {1}" + Environment.NewLine, response.StatusCode, response.StatusMessage);
+            Console.WriteLine("ContentType: {0}" + Environment.NewLine, response.ContentType);
+            Console.WriteLine("Content: {0}", response.Content);
+            Console.ReadLine();
+        }
+    }
+}
+	</code></pre>
+		
+	<hr>
+	
+	<a name="Methods"></a>
+	<h3>Available Methods</h3>
+
+	<a name="TermStructure"></a>
+	<h4>Term Structure</h4>
+	
+	<p>A term is a division of an academic time period or year (for example, semester, trimester, grades 2-3, etc.), so in LearningStudio a term has a start and end date. All courses are assigned to a term and derive their start and end dates from the term settings, but how terms are used (dates, number of courses, etc) is at the Educational Partner's discretion.</p>
+	<br>
+	
+	<pre><code class="language-csharp">CreateStandardTerm(CreateStandardTermRequest request)</code></pre>
+	<ul>
+	<li>Creates a new term in LearningStudio.</li>
+	<li>The term will be created immediately, and the service will return the LearningStudio Term ID.</li>
+	<li><a href="http://developer.pearson.com/learningstudio/create-term">API Documentation</a></li>
+	<li><a href="../AutoDocs/Help/html/8a98d06a-64d3-33e7-67b1-f21674fc5017.htm">Auto-generated Documentation</a></li>
+	</ul>
+	
+	<br>
+	<pre><code class="language-csharp">UpdateStandardTerm(UpdateStandardTermRequest request)</code></pre>
+	<ul>
+	<li>Updates the term details for an existing term in LearningStudio </li>
+	<li>The term will be updated immediately, and the service will return the LearningStudio Term ID.</li>
+	<li><a href="http://developer.pearson.com/learningstudio/update-term">API Documentation</a></li>
+	<li><a href="../AutoDocs/Help/html/3d81966c-3706-015d-d19f-484626f33a8c.htm">Auto-generated Documentation</a></li>
+	</ul>
+	
+
+	</article> 	
+	<footer>
+		&copy;2015 Pearson Education Inc. Libraries released under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache 2.0 License</a>. For help with these libraries or the APIs, please use the <a href="https://community.pdn.pearson.com" target="_blank">PDN Developer Community</a>.
+	</footer>
+        <script src="../assets/js/prism.js"></script>
+
+    </body>
+</html>

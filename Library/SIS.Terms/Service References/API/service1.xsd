@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" elementFormDefault="qualified" targetNamespace="http://CCWS-Services.eCollege.com/EnterpriseServices/Types/v2.2/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="StandardTermEx">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AssociatedEPOrganization" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="BillingClassificationType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClientString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CourseActualTimeFrame" nillable="true" type="tns:TimeFrame" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DropAddPeriodTimeFrame" nillable="true" type="tns:TimeFrame" />
+      <xs:element minOccurs="0" name="ID" nillable="true" type="tns:TermIdentifier" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistrationTimeFrame" nillable="true" type="tns:TimeFrame" />
+      <xs:element minOccurs="0" name="TermTimeFrame" nillable="true" type="tns:TimeFrame" />
+      <xs:element minOccurs="0" name="TermTypeCode" type="tns:TermType" />
+      <xs:element minOccurs="0" name="WithdrawPeriodEndsOn" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StandardTermEx" nillable="true" type="tns:StandardTermEx" />
+  <xs:complexType name="TimeFrame">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TimeFrame" nillable="true" type="tns:TimeFrame" />
+  <xs:complexType name="TermIdentifier">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MappingType" type="tns:MappedTermIDType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TermIdentifier" nillable="true" type="tns:TermIdentifier" />
+  <xs:simpleType name="MappedTermIDType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TermID">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SourcedID">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MappedTermIDType" nillable="true" type="tns:MappedTermIDType" />
+  <xs:simpleType name="TermType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Standard" />
+      <xs:enumeration value="SelfPaced" />
+      <xs:enumeration value="K12" />
+      <xs:enumeration value="Special" />
+      <xs:enumeration value="Inventory" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TermType" nillable="true" type="tns:TermType" />
+</xs:schema>

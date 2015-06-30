@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="dfa0d820-157f-4060-9ad8-f9dff39971c1" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseCourse.svc/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="enterprisecourse.wsdl" MetadataType="Wsdl" ID="af689373-edeb-4ab7-91df-95d0ca2725b0" SourceId="1" SourceUrl="https://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseCourse.svc/mex" />
+    <MetadataFile FileName="v2.2.wsdl" MetadataType="Wsdl" ID="b620a58a-37c8-442a-9a63-3a833b698e57" SourceId="1" SourceUrl="https://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseCourse.svc/mex" />
+    <MetadataFile FileName="enterprisecourse.xsd" MetadataType="Schema" ID="b1cfcb7b-5fe8-436e-9b90-6525a55f7eff" SourceId="1" SourceUrl="https://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseCourse.svc/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="8cbd85a7-ebad-4f52-ac50-a2f71d4daf77" SourceId="1" SourceUrl="https://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseCourse.svc/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="9af2f684-44f8-465e-9b81-374c7c12cbc5" SourceId="1" SourceUrl="https://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseCourse.svc/mex" />
+    <MetadataFile FileName="System.xsd" MetadataType="Schema" ID="15961741-aca4-40d5-8c48-7417c17613bb" SourceId="1" SourceUrl="https://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseCourse.svc/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="d55bcaad-757d-4f0e-a56d-dfef9280987b" SourceId="1" SourceUrl="https://ccws-services.ecollege.com/EnterpriseServices/v2.2/EnterpriseCourse.svc/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
